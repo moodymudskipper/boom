@@ -8,9 +8,6 @@ the intermediate results of a call. It “explodes” the call into its
 parts hence the name. It is useful for debugging and teaching operation
 precedence.
 
-Just provide any call to `boom()` or pipe to `boom()` at the end of a
-*{magrittr}* pipe chain.
-
 ## Installation
 
 Install with:
@@ -41,7 +38,12 @@ boom(subset(head(mtcars, 2), qsec > 17))
 #> subset(head(mtcars, 2), qsec > 17)
 #>               mpg cyl disp  hp drat    wt  qsec vs am gear carb
 #> Mazda RX4 Wag  21   6  160 110  3.9 2.875 17.02  0  1    4    4
+```
 
+You can use `boom()` with *{magrittr}* pipes, just pipe to `boom()` at
+the end of a pipe chain.
+
+``` r
 library(magrittr)
 mtcars %>%
   head(2) %>%
@@ -61,6 +63,22 @@ mtcars %>%
 #> Mazda RX4 Wag  21   6  160 110  3.9 2.875 17.02  0  1    4    4
 ```
 
+If a call fails, *{boom}* will print intermediate outputs up to the
+occurrence of the error, it can help with debugging:
+
+``` r
+"tomato" %>%
+  substr(1, 3) %>%
+  toupper() %>%
+  sqrt() %>%
+  boom()
+#> substr(., 1, 3)
+#> [1] "tom"
+#> toupper(.)
+#> [1] "TOM"
+#> Error in .Primitive("sqrt")(.): non-numeric argument to mathematical function
+```
+
 ## Addin
 
 If you don’t want to type `boom()` you can use the provided addin, named
@@ -71,10 +89,10 @@ fire away\!
 ## Notes
 
 *{boom}* prints intermediate steps as they are executed, and thus
-doesn’t say anything about what isn’t executed, it is in constrast
-with functions like `lobstr::ast()` which return the parse tree.
+doesn’t say anything about what isn’t executed, it is in contrast with
+functions like `lobstr::ast()` which return the parse tree.
 
-This will be noticable with some uses of non standard evaluation.
+This will be noticeable with some uses of non standard evaluation.
 
 ``` r
 lobstr::ast(deparse(quote(1+2+3+4)))
