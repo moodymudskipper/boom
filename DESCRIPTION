@@ -18,3 +18,5 @@ Imports:
 Suggests: 
     magrittr,
     lobstr
+URL: https://github.com/moodymudskipper/boom
+BugReports: https://github.com/moodymudskipper/boom/issues
