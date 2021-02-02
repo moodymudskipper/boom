@@ -1,0 +1,63 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# boom <img src='man/figures/logo.png' align="right" height="139" />
+
+*{boom}* is a one function package that lets you inspect the results of the
+intermediate results of a call. It "explodes" the call into its parts hence the name.
+It is useful for debugging and teaching operation precedence.
+
+Just provide any call to `boom()` or pipe to   `boom()` at the end of a 
+*{magrittr}* pipe chain.
+
+## Installation
+
+Install with:
+
+``` r
+remotes::install_github("moodymudskipper/boom")
+```
+
+## Examples
+
+```{r example}
+library(boom)
+boom(1 + !1 * 2)
+
+boom(subset(head(mtcars, 2), qsec > 17))
+
+library(magrittr)
+mtcars %>%
+  head(2) %>%
+  subset(qsec > 17) %>%
+  boom()
+```
+
+## Notes
+
+*{boom}* prints intermediate steps as they are executed, and thus doesn't say anything about what isn't executed,
+it is in constrast with functions like `lobstr::ast()` which return the parse tree. 
+
+This will be noticable with some uses of non standard evaluation.
+
+```{r}
+lobstr::ast(deparse(quote(1+2+3+4)))
+
+boom(deparse(quote(1+2+3+4)))
+
+# standard evaluation
+boom(1+2+3+4)
+```
+
