@@ -61,6 +61,13 @@ mtcars %>%
 #> Mazda RX4 Wag  21   6  160 110  3.9 2.875 17.02  0  1    4    4
 ```
 
+## Addin
+
+If you don’t want to type `boom()` you can use the provided addin, named
+*“Explode a call”*, just attribute a key combination to it (I use
+ctrl+shift+alt+B on windows), select the call you’d like to explode and
+fire away\!
+
 ## Notes
 
 *{boom}* prints intermediate steps as they are executed, and thus

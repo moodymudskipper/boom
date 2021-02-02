@@ -1,0 +1,4 @@
+Name: Explode a call
+Description: Print the Output of Intermediate Steps of a Call
+Binding: boom_addin
+Interactive: false
